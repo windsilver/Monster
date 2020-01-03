@@ -25,6 +25,9 @@ public class _Progress_control : MonoBehaviour {
 					SceneManager.LoadScene ("Menu");
 					print ("正要切換到下一畫面");
 					break;
+				case "Panel_Menu": //到選單後
+					Menu_Camera.Camera_move = 190;
+					break;
 			} //switch
 			Progress = "";
 		}

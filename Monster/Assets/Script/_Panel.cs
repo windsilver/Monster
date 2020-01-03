@@ -11,6 +11,9 @@ public class _Panel : MonoBehaviour {
 				case "Main":
 					_Progress_control.Progress = "Panel_Main";
 					break;
+				case "Menu":
+					_Progress_control.Progress = "Panel_Menu";
+					break;
 			}
 
 			Panel_out = false;
