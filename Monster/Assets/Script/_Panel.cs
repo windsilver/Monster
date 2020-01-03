@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class _Panel : MonoBehaviour {
 	public bool Panel_out = false;
@@ -6,12 +7,21 @@ public class _Panel : MonoBehaviour {
 
 	void Update () {
 		if (Panel_out) {
-			_Progress_control.Progress = "Panel_out";
+			switch (SceneManager.GetActiveScene ().name) {
+				case "Main":
+					_Progress_control.Progress = "Panel_Main";
+					break;
+			}
+
 			Panel_out = false;
 		}
 
 		if (Panel_in) {
-			_Progress_control.Progress = "Panel_in";
+			switch (SceneManager.GetActiveScene ().name) {
+				case "Main":
+					_Progress_control.Progress = "Panel_Main_in_Menu";
+					break;
+			}
 			Panel_in = false;
 		}
 	}
