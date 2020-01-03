@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class _Progress_control : MonoBehaviour {
 	public static string Progress = "";
 	public GameObject Panel;
+	public GameObject[] Temporary_Gameobject;
 
 	void Start () {
 		Progress = "";
@@ -21,12 +22,14 @@ public class _Progress_control : MonoBehaviour {
 				case "Main_start": //點下開始
 					Panel.GetComponent<Animation> ().Play ("Panel_in");
 					break;
-				case "Panel_Main_in_Menu": //標題到選單
-					SceneManager.LoadScene ("Menu");
-					print ("正要切換到下一畫面");
-					break;
 				case "Panel_Menu": //到選單後
 					Menu_Camera.Camera_move = 190;
+					break;
+				case "Menu_Grow": //點下成長
+					Temporary_Gameobject[0].GetComponent<Animation> ().Play ("Menu_Grass_right");
+					break;
+				case "Grass_end": //草地移動完畢時
+					Temporary_Gameobject[1].GetComponent<Animation> ().Play ("Menu_Card_down");
 					break;
 			} //switch
 			Progress = "";
