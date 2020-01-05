@@ -6,18 +6,21 @@ using UnityEngine.UI;
 
 public class _Progress_control : MonoBehaviour {
 	public static string Progress = "";
+	public static int difficulty = 0;
 	public GameObject Panel;
 	public Text[] Card_Text;
 	public GameObject[] Temporary_Gameobject;
 	/* 
-	0=Menu Grass
-	1=Menu Card
-	2=Menu Monster
-	3=Menu Name
-	4=Menu Icon
-	5=Menu HPup
-	6=Menu ATKup
+	Menu					Fight
+	0=Grass					Icon
+	1=Card
+	2=Monster
+	3=Name
+	4=Icon
+	5=HPup
+	6=ATKup
 	7=Icon_Instantiate
+	8=Fight Home
 	*/
 	public Sprite[] Temporary_Sprite;
 	void Start () {
@@ -66,6 +69,18 @@ public class _Progress_control : MonoBehaviour {
 					Menu_Camera.Camera_move = 190;
 					Temporary_Gameobject[4].SetActive (false);
 					break;
+				case "Menu_Fight": //切到關卡選擇
+					Temporary_Gameobject[8].SetActive (true);
+					break;
+				case "Menu_Difficulty": //選擇關卡後
+					Panel.GetComponent<Animation> ().Play ("Panel_in");
+					break;
+				case "Panel_Fight": //進入戰場後
+					Temporary_Gameobject[0].GetComponent<Animation> ().Play ("Fight_Icon_up");
+					Card_Text[0].text = load_data.HP.ToString ();
+					Card_Text[1].text = load_data.ATK.ToString ();
+					Card_Text[2].text = "0";
+					break;
 			} //switch
 			Progress = "";
 		}
@@ -111,9 +126,14 @@ public class _Progress_control : MonoBehaviour {
 		load_data = JsonUtility.FromJson<data> (load_json);
 	}
 
-	public void Menu_Home () {
-		Temporary_Gameobject[1].GetComponent<Animation> ().Play ("Menu_Card_up");
-		Save (1);
+	public void Menu_Home (string a) {
+		if (a == "Grow") {
+			Temporary_Gameobject[1].GetComponent<Animation> ().Play ("Menu_Card_up");
+			Save (1);
+		} else {
+			Menu_Camera.Camera_move -= 190;
+			Temporary_Gameobject[8].SetActive (false);
+		}
 	}
 	public void Menu_add (string name) {
 		if (load_data.points > 0) {
@@ -123,6 +143,7 @@ public class _Progress_control : MonoBehaviour {
 				load_data.HP += 2;
 				Card_Text[2].text = load_data.HP_points.ToString () + "/30";
 				Card_Text[4].text = load_data.HP.ToString ();
+				load_data.points -= 1;
 
 			}
 			if (name == "ATK" && load_data.ATK_points < 30) {
@@ -131,9 +152,9 @@ public class _Progress_control : MonoBehaviour {
 				load_data.ATK += 1;
 				Card_Text[3].text = load_data.ATK_points.ToString () + "/30";
 				Card_Text[5].text = load_data.ATK.ToString ();
+				load_data.points -= 1;
 			}
 			name = "";
-			load_data.points -= 1;
 			Card_Text[1].text = load_data.points.ToString ();
 		}
 	}
