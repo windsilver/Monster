@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Menu_Fight : MonoBehaviour {
 	bool mouse_down = false;
@@ -14,7 +12,7 @@ public class Menu_Fight : MonoBehaviour {
 				Menu_Camera.Camera_move = +190;
 				mouse_down = false;
 				Image.transform.localScale = new Vector3 (1f, 1f, 1);
-				_Progress_control.Progress = "Menu_Fight";
+				Menu_Camera.Camera_button = "Fight";
 			}
 		}
 	}

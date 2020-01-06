@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public class _Panel : MonoBehaviour {
 	public bool Panel_out = false;
 	public bool Panel_in = false;
-	public static string Panel_switch = "";
+	//public static string Panel_switch = "";
 	void Update () {
 		if (Panel_out) {
 			switch (SceneManager.GetActiveScene ().name) {
@@ -13,6 +13,9 @@ public class _Panel : MonoBehaviour {
 					break;
 				case "Menu":
 					_Progress_control.Progress = "Panel_Menu";
+					break;
+				case "Fight":
+					_Progress_control.Progress = "Panel_Fight";
 					break;
 			}
 
@@ -25,10 +28,10 @@ public class _Panel : MonoBehaviour {
 					SceneManager.LoadScene ("Menu");
 					break;
 				case "Menu":
-					if (Panel_switch == "Fight") {
-						SceneManager.LoadScene ("Fight");
-					}
-					Panel_switch = "";
+					//if (Panel_switch == "Fight") {
+					SceneManager.LoadScene ("Fight");
+					//}
+					//Panel_switch = "";
 					break;
 			}
 			Panel_in = false;
