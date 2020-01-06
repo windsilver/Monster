@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 public class Fight_Player : MonoBehaviour {
-	public int hp, hp_max, sp = 0;
+	public int hp, hp_max, sp = 3;
 	public int action;
 	public Text Hp, Sp;
 	public Animator Player_ani;
+	public GameObject Body;
 	float time = 0, sp_time = 5;
+	bool die = false;
 	void Start () {
 		action = 1;
 		hp_max = _Progress_control.load_data.HP;
@@ -18,7 +20,8 @@ public class Fight_Player : MonoBehaviour {
 		if (sp_time > 0) {
 			sp_time -= Time.deltaTime;
 		} else {
-			sp += 1;
+			if (sp < 6)
+				sp += 1;
 			sp_time += 5;
 			Sp.text = sp.ToString ();
 		}
@@ -39,5 +42,12 @@ public class Fight_Player : MonoBehaviour {
 		}
 		if (action == 1 && hp > 0)
 			transform.localPosition += new Vector3 (0.01f, 0, 0);
+
+		if (hp <= 0 && !die) {
+			die = true;
+			Player_ani.Play ("Player_Die");
+			Body.GetComponent<BoxCollider2D> ().enabled = false;
+			_Progress_control.Progress = "Player_Die";
+		}
 	}
 }

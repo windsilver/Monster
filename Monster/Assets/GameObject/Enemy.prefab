@@ -365,10 +365,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Die: 0
   hp: 0
-  hp_max: 15
+  hp_max: 10
   Enemy_action: 0
   Enemy_ani: {fileID: 95463649427887922}
   Hp_Bar: {fileID: 1184586264837136}
+  Enemy_text: {fileID: 0}
 --- !u!212 &212205096287981664
 SpriteRenderer:
   m_ObjectHideFlags: 1

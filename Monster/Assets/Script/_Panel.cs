@@ -28,10 +28,10 @@ public class _Panel : MonoBehaviour {
 					SceneManager.LoadScene ("Menu");
 					break;
 				case "Menu":
-					//if (Panel_switch == "Fight") {
 					SceneManager.LoadScene ("Fight");
-					//}
-					//Panel_switch = "";
+					break;
+				case "Fight":
+					SceneManager.LoadScene ("Menu");
 					break;
 			}
 			Panel_in = false;

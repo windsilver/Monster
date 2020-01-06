@@ -105,13 +105,20 @@ public class Menu_Skil : MonoBehaviour {
 		}
 	}
 	public void z_Skil () {
-		if (!Skil_bool) {
+		if (!Skil_bool && _Progress_control.load_data.skil_int < 3) {
 			off.SetActive (false);
 			on.SetActive (true);
-		} else {
+			_Progress_control.load_data.skil_int += 1;
+			Skil_2 ();
+		} else if (Skil_bool) {
 			off.SetActive (true);
 			on.SetActive (false);
+			_Progress_control.load_data.skil_int -= 1;
+			Skil_2 ();
 		}
+	}
+
+	void Skil_2 () {
 		Skil_bool = !Skil_bool;
 		switch (this.name) {
 			case "Skil1":

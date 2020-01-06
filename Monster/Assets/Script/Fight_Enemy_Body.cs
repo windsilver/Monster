@@ -25,7 +25,7 @@ public class Fight_Enemy_Body : MonoBehaviour {
 		this.GetComponent<SpriteRenderer> ().color = new Color (1, 0, 0, 1);
 		hurt = true;
 		hurt_time += 0.05f;
-		Main.GetComponent<Fight_Enemy> ().hp -= _Progress_control.load_data.ATK;
+		Main.GetComponent<Fight_Enemy> ().hp -= _Progress_control.load_data.ATK * Fight_Skil.effect_atk;
 		print ("HP=" + Main.GetComponent<Fight_Enemy> ().hp);
 	}
 }

@@ -13,8 +13,8 @@ public class _Progress_control : MonoBehaviour {
 	/* 
 	Menu					Fight
 	0=Grass					Icon
-	1=Card
-	2=Monster
+	1=Card					Enemy
+	2=Monster				Lose
 	3=Name
 	4=Icon
 	5=HPup
@@ -77,9 +77,22 @@ public class _Progress_control : MonoBehaviour {
 					break;
 				case "Panel_Fight": //進入戰場後
 					Temporary_Gameobject[0].GetComponent<Animation> ().Play ("Fight_Icon_up");
+					Temporary_Gameobject[1].GetComponent<Animation> ().Play ("Fight_EnemyIcon_left");
 					Card_Text[0].text = load_data.HP.ToString ();
 					Card_Text[1].text = load_data.ATK.ToString ();
 					Card_Text[2].text = "0";
+					break;
+				case "Player_Die": //玩家死亡
+					Temporary_Gameobject[0].GetComponent<Animation> ().Play ("Fight_Icon_down");
+					Temporary_Gameobject[1].GetComponent<Animation> ().Play ("Fight_EnemyIcon_right");
+					Temporary_Gameobject[2].GetComponent<Animation> ().Play ("Fight_Lose");
+					break;
+				case "Player_Win": //玩家勝利
+					Temporary_Gameobject[0].GetComponent<Animation> ().Play ("Fight_Icon_down");
+					Temporary_Gameobject[1].GetComponent<Animation> ().Play ("Fight_EnemyIcon_right");
+					break;
+				case "Fight_Lose": //失敗介面_返回標題
+					Panel.GetComponent<Animation> ().Play ("Panel_in");
 					break;
 			} //switch
 			Progress = "";
@@ -90,18 +103,19 @@ public class _Progress_control : MonoBehaviour {
 	public class data {
 		public int number = 1;
 		public int level = 1;
+		public int exp = 0;
 		public int points = 2;
 		public int HP = 10;
 		public int HP_points = 0;
 		public int ATK = 5;
 		public int ATK_points = 0;
-		public int skil_int = 0;
-		public bool[] skil1 = { false, false };
-		public bool[] skil2 = { false, false };
-		public bool[] skil3 = { false, false };
-		public bool[] skil4 = { false, false };
-		public bool[] skil5 = { false, false };
-		public bool[] skil6 = { false, false };
+		public int skil_int = 1;
+		public bool[] skil1 = { true, true };
+		public bool[] skil2 = { true, false };
+		public bool[] skil3 = { true, false };
+		public bool[] skil4 = { true, false };
+		public bool[] skil5 = { true, false };
+		public bool[] skil6 = { true, false };
 	}
 	/*全域讀取暫存*/
 	public static data load_data = new data ();
@@ -137,20 +151,20 @@ public class _Progress_control : MonoBehaviour {
 	}
 	public void Menu_add (string name) {
 		if (load_data.points > 0) {
-			if (name == "HP" && load_data.HP_points < 30) {
+			if (name == "HP" && load_data.HP_points < 40) {
 				Instantiate (Temporary_Gameobject[5], Temporary_Gameobject[7].transform.position, new Quaternion (0, 0, 0, 0));
 				load_data.HP_points += 1;
 				load_data.HP += 2;
-				Card_Text[2].text = load_data.HP_points.ToString () + "/30";
+				Card_Text[2].text = load_data.HP_points.ToString () + "/40";
 				Card_Text[4].text = load_data.HP.ToString ();
 				load_data.points -= 1;
 
 			}
-			if (name == "ATK" && load_data.ATK_points < 30) {
+			if (name == "ATK" && load_data.ATK_points < 40) {
 				Instantiate (Temporary_Gameobject[6], Temporary_Gameobject[7].transform.position, new Quaternion (0, 0, 0, 0));
 				load_data.ATK_points += 1;
 				load_data.ATK += 1;
-				Card_Text[3].text = load_data.ATK_points.ToString () + "/30";
+				Card_Text[3].text = load_data.ATK_points.ToString () + "/40";
 				Card_Text[5].text = load_data.ATK.ToString ();
 				load_data.points -= 1;
 			}

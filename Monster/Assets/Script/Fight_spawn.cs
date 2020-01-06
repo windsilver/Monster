@@ -1,16 +1,15 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class Fight_spawn : MonoBehaviour {
 	public GameObject spawn;
-	public Text Enemy_text;
 	float time = 0;
-	int spawn_int = 5;
+	public static int spawn_int = 5, Enemy_int = 99;
+	bool win = false;
 	void Start () {
 		Instantiate (spawn, this.transform.position, new Quaternion (0, 0, 0, 0));
+		Enemy_int = spawn_int;
 		spawn_int -= 1;
 		time += 10;
-		Enemy_text.text = "=  " + spawn_int;
 	}
 
 	void Update () {
@@ -20,7 +19,11 @@ public class Fight_spawn : MonoBehaviour {
 			Instantiate (spawn, this.transform.position, new Quaternion (0, 0, 0, 0));
 			time += 10;
 			spawn_int -= 1;
-			Enemy_text.text = "=  " + spawn_int;
+		}
+
+		if (Enemy_int <= 0 && !win) {
+			win = true;
+			_Progress_control.Progress = "Player_Win";
 		}
 	}
 }

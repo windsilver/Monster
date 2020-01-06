@@ -1,18 +1,21 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Fight_Enemy : MonoBehaviour {
 	public bool Die;
 
-	public int hp, hp_max = 15;
+	public int hp, hp_max = 10;
 	public int Enemy_action;
 
 	public Animator Enemy_ani;
 	public GameObject Hp_Bar;
+	public Text Enemy_text;
 	float time = 0;
 
 	void Start () {
 		Enemy_action = 0;
 		hp = hp_max;
+		Enemy_text = GameObject.Find ("Enemy_Text").GetComponent<Text> ();
 	}
 
 	void Update () {
@@ -39,7 +42,10 @@ public class Fight_Enemy : MonoBehaviour {
 		if (hp <= 0) {
 			Enemy_ani.Play ("Enemy_Die");
 		}
-		if (Die)
+		if (Die) {
+			Fight_spawn.Enemy_int -= 1;
+			Enemy_text.text = "=  " + Fight_spawn.Enemy_int;
 			Destroy (this.gameObject);
+		}
 	}
 }

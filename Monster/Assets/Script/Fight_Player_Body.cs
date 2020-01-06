@@ -27,7 +27,7 @@ public class Fight_Player_Body : MonoBehaviour {
 		this.GetComponent<SpriteRenderer> ().color = new Color (1, 0, 0, 1);
 		hurt = true;
 		hurt_time += 0.05f;
-		Main.GetComponent<Fight_Player> ().hp -= a;
+		Main.GetComponent<Fight_Player> ().hp -= a / Fight_Skil.effect_def;
 		Main.GetComponent<Fight_Player> ().Hp.text = Main.GetComponent<Fight_Player> ().hp.ToString ();
 		print ("HP=" + Main.GetComponent<Fight_Player> ().hp);
 	}

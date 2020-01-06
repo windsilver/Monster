@@ -22,6 +22,9 @@ public class Menu_Animation : MonoBehaviour {
 						break;
 				}
 			}
+			if (this.name == "Lose") {
+				_Progress_control.Progress = "Fight_Lose";
+			}
 			Animation_int = 0;
 			Animation_end = false;
 		}
