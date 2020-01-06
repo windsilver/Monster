@@ -25,6 +25,9 @@ public class Menu_Animation : MonoBehaviour {
 			if (this.name == "Lose") {
 				_Progress_control.Progress = "Fight_Lose";
 			}
+			if (this.name == "Win") {
+				_Progress_control.Progress = "Fight_Win_Home";
+			}
 			Animation_int = 0;
 			Animation_end = false;
 		}

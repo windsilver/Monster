@@ -11,8 +11,13 @@ public class Fight_Enemy : MonoBehaviour {
 	public GameObject Hp_Bar;
 	public Text Enemy_text;
 	float time = 0;
+	public float atk_time = 2, move_x = 0.03f;
 
 	void Start () {
+		if (this.tag == "Bug_Test") {
+			atk_time = -0.8f;
+			move_x = 0.2f;
+		}
 		Enemy_action = 0;
 		hp = hp_max;
 		Enemy_text = GameObject.Find ("Enemy_Text").GetComponent<Text> ();
@@ -21,7 +26,10 @@ public class Fight_Enemy : MonoBehaviour {
 	void Update () {
 		if (time > 0)
 			time -= Time.deltaTime;
-		Hp_Bar.transform.localScale = new Vector3 ((float) hp / hp_max, 1, 1);
+		if (hp <= 0)
+			Hp_Bar.transform.localScale = new Vector3 (0, 1, 1);
+		else
+			Hp_Bar.transform.localScale = new Vector3 ((float) hp / hp_max, 1, 1);
 		if (time <= 0 && hp > 0) { //行動判斷
 			switch (Enemy_action) {
 				case 0:
@@ -32,13 +40,13 @@ public class Fight_Enemy : MonoBehaviour {
 					break;
 				case 2:
 					Enemy_ani.Play ("Enemy_Attack");
-					time = 2;
+					time = atk_time;
 					break;
 			}
 			time += 1;
 		}
 		if (Enemy_action == 1 && hp > 0)
-			transform.localPosition -= new Vector3 (0.01f, 0, 0);
+			transform.localPosition -= new Vector3 (move_x, 0, 0);
 		if (hp <= 0) {
 			Enemy_ani.Play ("Enemy_Die");
 		}

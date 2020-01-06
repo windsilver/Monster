@@ -15,7 +15,7 @@ public class _Progress_control : MonoBehaviour {
 	0=Grass					Icon
 	1=Card					Enemy
 	2=Monster				Lose
-	3=Name
+	3=Name					Win
 	4=Icon
 	5=HPup
 	6=ATKup
@@ -54,8 +54,8 @@ public class _Progress_control : MonoBehaviour {
 					Temporary_Gameobject[3].GetComponent<SpriteRenderer> ().sprite = Temporary_Sprite[load_data.number + 2];
 					Card_Text[0].text = load_data.level.ToString ();
 					Card_Text[1].text = load_data.points.ToString ();
-					Card_Text[2].text = load_data.HP_points.ToString () + "/30";
-					Card_Text[3].text = load_data.ATK_points.ToString () + "/30";
+					Card_Text[2].text = load_data.HP_points.ToString () + "/40";
+					Card_Text[3].text = load_data.ATK_points.ToString () + "/40";
 					Card_Text[4].text = load_data.HP.ToString ();
 					Card_Text[5].text = load_data.ATK.ToString ();
 					break;
@@ -90,9 +90,18 @@ public class _Progress_control : MonoBehaviour {
 				case "Player_Win": //玩家勝利
 					Temporary_Gameobject[0].GetComponent<Animation> ().Play ("Fight_Icon_down");
 					Temporary_Gameobject[1].GetComponent<Animation> ().Play ("Fight_EnemyIcon_right");
+					Temporary_Gameobject[3].GetComponent<Animation> ().Play ("Fight_Win");
+					Temporary_Gameobject[3].GetComponent<Fight_Exp> ().exp_add = 100;
 					break;
 				case "Fight_Lose": //失敗介面_返回標題
 					Panel.GetComponent<Animation> ().Play ("Panel_in");
+					break;
+				case "Fight_Win_Home": //獲勝介面_返回標題
+					Panel.GetComponent<Animation> ().Play ("Panel_in");
+					load_data.points += Temporary_Gameobject[3].GetComponent<Fight_Exp> ().points;
+					load_data.level = Temporary_Gameobject[3].GetComponent<Fight_Exp> ().level;
+					load_data.exp = Temporary_Gameobject[3].GetComponent<Fight_Exp> ().exp;
+					Save (1);
 					break;
 			} //switch
 			Progress = "";
@@ -105,17 +114,17 @@ public class _Progress_control : MonoBehaviour {
 		public int level = 1;
 		public int exp = 0;
 		public int points = 2;
-		public int HP = 10;
+		public int HP = 15;
 		public int HP_points = 0;
 		public int ATK = 5;
 		public int ATK_points = 0;
 		public int skil_int = 1;
 		public bool[] skil1 = { true, true };
-		public bool[] skil2 = { true, false };
-		public bool[] skil3 = { true, false };
-		public bool[] skil4 = { true, false };
-		public bool[] skil5 = { true, false };
-		public bool[] skil6 = { true, false };
+		public bool[] skil2 = { false, false };
+		public bool[] skil3 = { false, false };
+		public bool[] skil4 = { false, false };
+		public bool[] skil5 = { false, false };
+		public bool[] skil6 = { false, false };
 	}
 	/*全域讀取暫存*/
 	public static data load_data = new data ();
@@ -171,6 +180,10 @@ public class _Progress_control : MonoBehaviour {
 			name = "";
 			Card_Text[1].text = load_data.points.ToString ();
 		}
+	}
+
+	public void Fight_Home () {
+		Temporary_Gameobject[3].GetComponent<Animation> ().Play ("Fight_Win_up");
 	}
 
 }

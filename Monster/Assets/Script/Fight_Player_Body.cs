@@ -22,6 +22,10 @@ public class Fight_Player_Body : MonoBehaviour {
 			time += 0.5f;
 			Hurt (2);
 		}
+		if (other.tag == "Bug_Test" && time <= 0) {
+			time += 0.5f;
+			Hurt (99);
+		}
 	}
 	void Hurt (int a) {
 		this.GetComponent<SpriteRenderer> ().color = new Color (1, 0, 0, 1);
